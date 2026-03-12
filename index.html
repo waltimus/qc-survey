@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC Training Needs Assessment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  :root { --bg:#0a0f1a;--sf:#111827;--sf2:#1a2332;--bd:#2a3444;--tx:#e2e8f0;--tm:#8896ab;--ac:#3b82f6;--gn:#10b981;--pr:#8b5cf6;--cy:#06b6d4;--rd:#ef4444;--am:#f59e0b; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;line-height:1.6}
+  .app{max-width:840px;margin:0 auto;padding:40px 24px}
+  .hdr{text-align:center;margin-bottom:40px}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--ac);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px}
+  .hdr h1{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px;background:linear-gradient(135deg,#e2e8f0,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hdr p{color:var(--tm);font-size:14px}
+  .prog{display:flex;gap:5px;margin-bottom:6px}
+  .ps{flex:1;height:4px;border-radius:4px;background:var(--bd);transition:all .4s}
+  .ps.on{background:var(--ac);box-shadow:0 0 10px rgba(59,130,246,.4)}.ps.dn{background:var(--gn)}
+  .plb{display:flex;justify-content:space-between;margin-bottom:28px}
+  .plb span{font-size:10px;font-weight:600;color:var(--tm);text-transform:uppercase;letter-spacing:.8px}
+  .plb span.on{color:var(--ac)}.plb span.dn{color:var(--gn)}
+  .sec{display:none;animation:fu .35s ease}.sec.act{display:block}
+  @keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .st{font-size:18px;font-weight:700;margin-bottom:4px}
+  .sd{color:var(--tm);font-size:13px;margin-bottom:22px}
+  .fld{margin-bottom:18px}
+  .fld label{font-size:12px;font-weight:600;display:block;margin-bottom:6px}
+  .fld .ht{font-size:11px;color:var(--tm);margin-bottom:6px;font-style:italic}
+  input[type=text],select,textarea{width:100%;padding:10px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:8px;color:var(--tx);font-family:'Inter',sans-serif;font-size:13px;outline:none;transition:border .2s}
+  input:focus,select:focus,textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+  textarea{min-height:72px;resize:vertical}
+  select{appearance:none;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238896ab' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+  select option{background:var(--sf)}
+  .r2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .dblk{margin-bottom:26px}
+  .dhdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+  .dhdr .ico{font-size:16px}.dhdr .nm{font-size:14px;font-weight:700}
+  .dhdr .ct{margin-left:auto;font-size:11px;color:var(--tm)}
+  .tgs{display:flex;flex-wrap:wrap;gap:7px}
+  .tg{padding:7px 14px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--bd);background:var(--sf);color:var(--tm);transition:all .15s;user-select:none}
+  .tg:hover{border-color:var(--tm);color:var(--tx)}
+  .tg.on[data-d=quality]{background:var(--ac);color:#fff;border-color:transparent;box-shadow:0 0 10px rgba(59,130,246,.25)}
+  .tg.on[data-d=lab]{background:var(--cy);color:#fff;border-color:transparent;box-shadow:0 0 10px rgba(6,182,212,.25)}
+  .tg.on[data-d=regulatory]{background:var(--pr);color:#fff;border-color:transparent;box-shadow:0 0 10px rgba(139,92,246,.25)}
+  .tg.on[data-d=soft]{background:var(--gn);color:#fff;border-color:transparent;box-shadow:0 0 10px rgba(16,185,129,.25)}
+  .srow{display:flex;align-items:center;gap:12px}
+  .srow input[type=range]{flex:1;-webkit-appearance:none;height:5px;border-radius:5px;background:var(--bd);outline:none}
+  .srow input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--ac);cursor:pointer}
+  .sv{font-size:14px;font-weight:700;color:var(--ac);min-width:24px;text-align:center}
+  .nav{display:flex;justify-content:space-between;margin-top:28px;padding-top:18px;border-top:1px solid var(--bd)}
+  .btn{padding:10px 24px;border-radius:8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+  .bb{background:var(--sf2);color:var(--tm);border:1px solid var(--bd)}.bb:hover{border-color:var(--tm);color:var(--tx)}
+  .bn{background:var(--ac);color:#fff}.bn:hover{background:#2563eb}
+  .bs{background:linear-gradient(135deg,var(--gn),#059669);color:#fff}.bs:hover{box-shadow:0 4px 14px rgba(16,185,129,.35)}
+  .card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:20px;margin-bottom:16px}
+  .card h3{font-size:15px;font-weight:700;margin-bottom:10px}
+  .stt{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bd);font-size:13px}
+  .stt:last-child{border:none}.stt .l{color:var(--tm)}.stt .v{font-weight:600}
+  .rec{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:10px;transition:border .2s}
+  .rec:hover{border-color:var(--ac)}
+  .rec .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .rec .rn{font-size:14px;font-weight:700}
+  .pri{font-size:10px;font-weight:700;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.4px}
+  .pri.h{background:rgba(239,68,68,.12);color:var(--rd)}
+  .pri.m{background:rgba(245,158,11,.12);color:var(--am)}
+  .pri.l{background:rgba(59,130,246,.12);color:var(--ac)}
+  .rec .trg{font-size:11px;color:var(--tm);margin-bottom:4px}
+  .rec .dsc{font-size:12px;color:var(--tm);line-height:1.5}
+  .rdom{display:inline-block;font-size:10px;padding:2px 8px;border-radius:5px;margin-top:8px;font-weight:600}
+  .rdom.quality{background:rgba(59,130,246,.12);color:var(--ac)}
+  .rdom.lab{background:rgba(6,182,212,.12);color:var(--cy)}
+  .rdom.regulatory{background:rgba(139,92,246,.12);color:var(--pr)}
+  .rdom.soft{background:rgba(16,185,129,.12);color:var(--gn)}
+  .xbar{display:flex;gap:10px;justify-content:center;margin-top:20px}
+  .bx{padding:8px 18px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--bd);background:var(--sf);color:var(--tx);transition:all .2s}
+  .bx:hover{border-color:var(--ac);color:var(--ac)}
+  @media(max-width:600px){.r2{grid-template-columns:1fr}.hdr h1{font-size:22px}.app{padding:24px 14px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr">
+    <div class="badge">◆ QC Team Assessment</div>
+    <h1>Training Needs Survey</h1>
+    <p>Identify growth areas and unlock the right training. ~3 minutes.</p>
+  </div>
+  <div class="prog" id="pb"></div>
+  <div class="plb" id="pl"></div>
+
+  <!-- S1: About You -->
+  <div class="sec act" id="s1">
+    <div class="st">About You</div>
+    <div class="sd">Basic info to tailor recommendations to your role and experience.</div>
+    <div class="r2">
+      <div class="fld"><label>Name</label><input type="text" id="fN" placeholder="First and Last"></div>
+      <div class="fld"><label>Employee ID <span style="color:var(--tm);font-weight:400">(optional)</span></label><input type="text" id="fI" placeholder="e.g., SH-12345"></div>
+    </div>
+    <div class="r2">
+      <div class="fld"><label>Role / Title</label><select id="fR"><option value="">Select your role</option><option>QC Technician I</option><option>QC Technician II</option><option>Senior QC Technician</option><option>QC Analyst</option><option>QC Specialist</option><option>QC Engineer</option><option>QC Supervisor</option><option>QC Manager</option><option>Other</option></select></div>
+      <div class="fld"><label>Years in QC</label><select id="fY"><option value="">Select range</option><option>Less than 1 year</option><option>1–3 years</option><option>3–5 years</option><option>5–10 years</option><option>10+ years</option></select></div>
+    </div>
+    <div class="fld"><label>Current Certifications <span style="color:var(--tm);font-weight:400">(if any)</span></label><input type="text" id="fC" placeholder="e.g., CQE, CQA, Lead Auditor, Six Sigma Green Belt"></div>
+    <div class="nav"><div></div><button class="btn bn" onclick="go(2)">Continue →</button></div>
+  </div>
+
+  <!-- S2: Tags -->
+  <div class="sec" id="s2">
+    <div class="st">Select Your Growth Areas</div>
+    <div class="sd">Click any skill areas where you want to develop. Each maps to specific training recommendations.</div>
+    <div id="tz"></div>
+    <div class="nav"><button class="btn bb" onclick="go(1)">← Back</button><button class="btn bn" onclick="go(3)">Continue →</button></div>
+  </div>
+
+  <!-- S3: Open -->
+  <div class="sec" id="s3">
+    <div class="st">Tell Us More</div>
+    <div class="sd">Your space to request specific training or flag areas the tags didn't cover.</div>
+    <div class="fld"><label>What specific training or certifications are you interested in?</label><div class="ht">Name specific courses, certs, or programs.</div><textarea id="fSp" placeholder="e.g., ASQ CQE certification, Lead Auditor ISO 13485, Minitab, Six Sigma Green Belt..."></textarea></div>
+    <div class="fld"><label>What's the biggest gap between what you know and what your job requires?</label><div class="ht">Where do you feel least confident?</div><textarea id="fG" placeholder="e.g., I handle CAPAs but don't fully understand root cause analysis beyond fishbone diagrams..."></textarea></div>
+    <div class="fld"><label>What does growth look like for you in the next 12 months?</label><textarea id="fGr" placeholder="e.g., Move into QC Engineer role, lead audits, become the data analysis go-to..."></textarea></div>
+    <div class="fld"><label>How confident do you feel in your current role? <span style="color:var(--tm);font-weight:400">(1=struggling, 10=crushing it)</span></label><div class="srow"><span style="font-size:11px;color:var(--tm)">1</span><input type="range" id="fCo" min="1" max="10" value="7" oninput="document.getElementById('cv').textContent=this.value"><span style="font-size:11px;color:var(--tm)">10</span><span class="sv" id="cv">7</span></div></div>
+    <div class="fld"><label>Preferred learning format</label><select id="fF"><option value="">Select preference</option><option>Instructor-led classroom</option><option>Virtual instructor-led</option><option>Self-paced online</option><option>On-the-job / shadowing</option><option>Blended (mix of formats)</option><option>No preference</option></select></div>
+    <div class="nav"><button class="btn bb" onclick="go(2)">← Back</button><button class="btn bs" onclick="submit()">Submit & See Recommendations →</button></div>
+  </div>
+
+  <!-- S4: Results -->
+  <div class="sec" id="s4">
+    <div class="st">Your Training Roadmap</div>
+    <div class="sd">Based on your selections and input, here are your recommended trainings.</div>
+    <div id="res"></div>
+    <div class="xbar"><button class="bx" onclick="xCSV()">📊 Export CSV</button><button class="bx" onclick="xJSON()">📋 Copy JSON</button><button class="bx" onclick="window.print()">🖨 Print</button></div>
+    <div class="nav"><button class="btn bb" onclick="rst()">← Start Over</button><div></div></div>
+  </div>
+</div>
+
+<script>
+const DOMS=[
+  {id:'quality',nm:'Quality Systems',ico:'🛡',tags:[
+    {k:'capa',l:'CAPA Management'},{k:'ncr',l:'NCR Processing'},{k:'audit',l:'Internal Auditing'},
+    {k:'lead-audit',l:'Lead Auditor'},{k:'rca',l:'Root Cause Analysis'},{k:'risk',l:'Risk Management'},
+    {k:'doc-control',l:'Document Control'},{k:'process-val',l:'Process Validation'},
+    {k:'spc',l:'Statistical Process Control'},{k:'supplier',l:'Supplier Quality'},
+    {k:'complaint',l:'Complaint Handling'},{k:'change-ctrl',l:'Change Control'}
+  ]},
+  {id:'lab',nm:'Lab & Analytical',ico:'🔬',tags:[
+    {k:'data-analysis',l:'Data Analysis'},{k:'doe',l:'Design of Experiments'},
+    {k:'metrology',l:'Metrology / Calibration'},{k:'method-val',l:'Method Validation'},
+    {k:'gmp-lab',l:'GMP Lab Practices'},{k:'equipment',l:'Equipment Qualification'},
+    {k:'sampling',l:'Sampling Plans'},{k:'data-integrity',l:'Data Integrity'},
+    {k:'statistics',l:'Statistical Methods'},{k:'lean-lab',l:'Lean Lab'}
+  ]},
+  {id:'regulatory',nm:'Regulatory & Compliance',ico:'📋',tags:[
+    {k:'fda-qsr',l:'FDA QSR / 21 CFR 820'},{k:'iso13485',l:'ISO 13485'},
+    {k:'iso9001',l:'ISO 9001'},{k:'mdr',l:'EU MDR'},{k:'submissions',l:'Regulatory Submissions'},
+    {k:'audit-readiness',l:'Audit Readiness'},{k:'cfr11',l:'21 CFR Part 11'},
+    {k:'labeling',l:'Labeling Requirements'},{k:'dhf-dhr',l:'DHF / DHR Management'}
+  ]},
+  {id:'soft',nm:'Professional Development',ico:'💬',tags:[
+    {k:'leadership',l:'Leadership'},{k:'tech-writing',l:'Technical Writing'},
+    {k:'public-speaking',l:'Public Speaking'},{k:'project-mgmt',l:'Project Management'},
+    {k:'ai-tools',l:'AI Tools & Agents'},{k:'training-dev',l:'Training Development'},
+    {k:'conflict',l:'Conflict Resolution'},{k:'cross-func',l:'Cross-Functional Collaboration'},
+    {k:'mentoring',l:'Mentoring & Coaching'},{k:'digital-tools',l:'Digital Tools & Automation'},
+    {k:'time-mgmt',l:'Time Management'}
+  ]}
+];
+
+const TM={
+  capa:{n:"CAPA Management & Effectiveness",d:"quality",desc:"Build and manage effective CAPA systems including investigation, containment, correction, and effectiveness verification."},
+  ncr:{n:"Nonconformance Management",d:"quality",desc:"Proper NCR documentation, dispositioning, and trending to drive systemic improvement."},
+  audit:{n:"Internal Auditor Training (ISO 19011)",d:"quality",desc:"Plan, conduct, and report internal quality audits against ISO and FDA requirements."},
+  "lead-audit":{n:"Lead Auditor Certification (ISO 13485)",d:"quality",desc:"Full lead auditor qualification for planning and leading audit programs."},
+  rca:{n:"Advanced Root Cause Analysis",d:"quality",desc:"Beyond fishbone — 5-Why, fault tree analysis, Kepner-Tregoe, and Apollo methods."},
+  risk:{n:"Risk Management (ISO 14971)",d:"quality",desc:"Hazard analysis, risk estimation, FMEA, and risk-benefit assessment for medical devices."},
+  "doc-control":{n:"Document Control Systems",d:"quality",desc:"SOPs, work instructions, controlled documents lifecycle management, and electronic QMS."},
+  "process-val":{n:"Process Validation (IQ/OQ/PQ)",d:"quality",desc:"Validation protocols, acceptance criteria, process capability, and continued process verification."},
+  spc:{n:"Statistical Process Control",d:"quality",desc:"Control charts, Cpk/Ppk, trend analysis, and SPC software tools."},
+  supplier:{n:"Supplier Quality Management",d:"quality",desc:"Supplier audits, approved supplier lists, incoming inspection, and supplier development."},
+  complaint:{n:"Complaint Handling & MDR Reporting",d:"quality",desc:"Complaint intake, investigation, reportability assessment, and FDA MDR/MedWatch."},
+  "change-ctrl":{n:"Change Control & Change Management",d:"quality",desc:"Engineering changes, process changes, impact assessment, and regulatory change notification."},
+  "data-analysis":{n:"Data Analysis with Minitab/JMP",d:"lab",desc:"Hands-on statistical analysis, graphing, hypothesis testing, and regression using industry tools."},
+  doe:{n:"Design of Experiments (DOE)",d:"lab",desc:"Factorial designs, response surface methodology, and optimization experiments."},
+  metrology:{n:"Metrology & Calibration Management",d:"lab",desc:"Measurement uncertainty, calibration programs, gage R&R, and traceability."},
+  "method-val":{n:"Analytical Method Validation",d:"lab",desc:"Accuracy, precision, specificity, linearity, range, and robustness per ICH/FDA guidance."},
+  "gmp-lab":{n:"GMP Laboratory Practices",d:"lab",desc:"Lab notebook documentation, sample management, reagent control, and lab compliance."},
+  equipment:{n:"Equipment Qualification (IQ/OQ/PQ)",d:"lab",desc:"Qualification protocols for lab and manufacturing equipment per FDA expectations."},
+  sampling:{n:"Sampling Plans & AQL (ANSI/ASQ Z1.4)",d:"lab",desc:"Attribute and variable sampling plans, OC curves, switching rules, and inspection levels."},
+  "data-integrity":{n:"Data Integrity (ALCOA+)",d:"lab",desc:"FDA data integrity expectations, ALCOA+ principles, electronic records, and audit trails."},
+  statistics:{n:"Applied Statistics for QC",d:"lab",desc:"Distributions, confidence intervals, hypothesis testing, ANOVA, and practical significance."},
+  "lean-lab":{n:"Lean Lab Operations",d:"lab",desc:"5S in the lab, workflow optimization, waste reduction, and throughput improvement."},
+  "fda-qsr":{n:"FDA QSR / 21 CFR 820 Deep Dive",d:"regulatory",desc:"Comprehensive review of Quality System Regulation requirements and FDA inspection expectations."},
+  iso13485:{n:"ISO 13485:2016 Requirements",d:"regulatory",desc:"Clause-by-clause understanding of the medical device QMS standard."},
+  iso9001:{n:"ISO 9001:2015 Fundamentals",d:"regulatory",desc:"Quality management principles, process approach, and risk-based thinking."},
+  mdr:{n:"EU MDR Compliance",d:"regulatory",desc:"European Medical Device Regulation requirements, classification, and conformity assessment."},
+  submissions:{n:"Regulatory Submission Support",d:"regulatory",desc:"510(k), PMA, and technical file contributions from a QC perspective."},
+  "audit-readiness":{n:"FDA Inspection Readiness",d:"regulatory",desc:"Mock inspections, front room/back room protocols, CAPA response, and 483 management."},
+  cfr11:{n:"21 CFR Part 11 Compliance",d:"regulatory",desc:"Electronic records and signatures, system validation, audit trails, and access controls."},
+  labeling:{n:"Medical Device Labeling (21 CFR 801)",d:"regulatory",desc:"UDI, labeling requirements, IFU, and label change control."},
+  "dhf-dhr":{n:"DHF / DHR / DMR Management",d:"regulatory",desc:"Design History Files, Device History Records, and Device Master Records per FDA requirements."},
+  leadership:{n:"QC Leadership Development",d:"soft",desc:"Team leadership, decision-making frameworks, influence without authority, and performance management."},
+  "tech-writing":{n:"Technical Writing for Regulated Environments",d:"soft",desc:"SOPs, reports, protocols, and investigation narratives that meet regulatory expectations."},
+  "public-speaking":{n:"Presentation & Communication Skills",d:"soft",desc:"Presenting to leadership, audit findings communication, and cross-functional updates."},
+  "project-mgmt":{n:"Project Management Fundamentals",d:"soft",desc:"Planning, execution, stakeholder management, and basic PM tools for QC-driven projects."},
+  "ai-tools":{n:"AI Tools & Agents for Quality",d:"soft",desc:"Leveraging AI for document review, trend analysis, predictive quality, and workflow automation."},
+  "training-dev":{n:"Training Program Development",d:"soft",desc:"Build competency-based training, assessments, OJT programs, and qualification matrices."},
+  conflict:{n:"Conflict Resolution & Negotiation",d:"soft",desc:"Managing disagreements with production, suppliers, and cross-functional stakeholders."},
+  "cross-func":{n:"Cross-Functional Collaboration",d:"soft",desc:"Working effectively across R&D, production, regulatory, and supply chain."},
+  mentoring:{n:"Mentoring & Coaching Skills",d:"soft",desc:"Developing junior team members, knowledge transfer, and building bench strength."},
+  "digital-tools":{n:"Digital Tools & Process Automation",d:"soft",desc:"Power BI, Power Automate, electronic QMS, and digital transformation in quality."},
+  "time-mgmt":{n:"Time Management & Prioritization",d:"soft",desc:"Managing competing priorities in a regulated environment where everything feels urgent."}
+};
+
+// ═══════════════════════════════════════════════════════
+// CONFIGURATION: Paste your Power Automate webhook URL below
+// ═══════════════════════════════════════════════════════
+const WEBHOOK_URL = 'https://default5dbf1add202a4b8d815bbf0fb024e0.33.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/72df9cf987ef4ba68a17d8a9223ded7a/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=A_PzzMtMaSv8y9nUXXnegOM_sclwyCV5ReML9GTOB_s';
+// ═══════════════════════════════════════════════════════
+
+const STEPS=['About You','Skill Areas','Open Input','Results'];
+let step=1,sel=new Set(),dat={};
+
+function init(){
+  let pb='',pl='';
+  STEPS.forEach((_,i)=>{pb+=`<div class="ps" id="p${i+1}"></div>`;pl+=`<span id="l${i+1}">${STEPS[i]}</span>`;});
+  document.getElementById('pb').innerHTML=pb;
+  document.getElementById('pl').innerHTML=pl;
+  let tz='';
+  DOMS.forEach(d=>{
+    tz+=`<div class="dblk"><div class="dhdr"><span class="ico">${d.ico}</span><span class="nm">${d.nm}</span><span class="ct" id="ct-${d.id}">0 selected</span></div><div class="tgs">`;
+    d.tags.forEach(t=>{tz+=`<div class="tg" data-d="${d.id}" data-k="${t.k}" onclick="tog(this)">${t.l}</div>`;});
+    tz+=`</div></div>`;
+  });
+  document.getElementById('tz').innerHTML=tz;
+  uprog();
+}
+
+function tog(el){
+  const k=el.dataset.k,d=el.dataset.d;
+  el.classList.toggle('on');
+  sel.has(k)?sel.delete(k):sel.add(k);
+  document.getElementById('ct-'+d).textContent=document.querySelectorAll('.tg.on[data-d="'+d+'"]').length+' selected';
+}
+
+function uprog(){
+  for(let i=1;i<=4;i++){
+    const s=document.getElementById('p'+i),l=document.getElementById('l'+i);
+    s.className='ps'+(i<step?' dn':i===step?' on':'');
+    l.className=i<step?'dn':i===step?'on':'';
+  }
+}
+
+function go(s){
+  if(s===2){if(!document.getElementById('fN').value.trim()||!document.getElementById('fR').value){alert('Name and role are required.');return;}}
+  document.getElementById('s'+step).classList.remove('act');
+  step=s;
+  document.getElementById('s'+step).classList.add('act');
+  uprog();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function submit(){
+  dat={name:document.getElementById('fN').value.trim(),empId:document.getElementById('fI').value.trim(),
+    role:document.getElementById('fR').value,years:document.getElementById('fY').value,
+    certs:document.getElementById('fC').value.trim(),keywords:Array.from(sel),
+    specific:document.getElementById('fSp').value.trim(),gap:document.getElementById('fG').value.trim(),
+    growth:document.getElementById('fGr').value.trim(),confidence:document.getElementById('fCo').value,
+    format:document.getElementById('fF').value,at:new Date().toISOString()};
+  render();go(4);
+
+  // Send to Power Automate if webhook is configured
+  if(WEBHOOK_URL){
+    fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(dat)})
+    .then(r=>{if(r.ok){console.log('✓ Submitted to SharePoint')}else{console.error('Submit failed:',r.status);alert('Survey saved locally but failed to submit to SharePoint. Status: '+r.status)}})
+    .catch(err=>{console.error('Network error:',err);alert('Survey saved locally but could not reach SharePoint. Check your network connection.')});
+  }
+}
+
+function render(){
+  const dc={quality:0,lab:0,regulatory:0,soft:0};
+  sel.forEach(k=>{if(TM[k])dc[TM[k].d]++});
+  let h=`<div class="card"><h3>📊 ${dat.name} — Summary</h3>`;
+  [['Role',dat.role],['Experience',dat.years||'—'],['Confidence',dat.confidence+'/10'],
+   ['Quality Systems',dc.quality],['Lab & Analytical',dc.lab],['Regulatory',dc.regulatory],
+   ['Professional Dev',dc.soft],['Total Areas',sel.size]].forEach(s=>{
+    h+=`<div class="stt"><span class="l">${s[0]}</span><span class="v">${s[1]}</span></div>`;
+  });
+  if(dat.specific)h+=`<div class="stt"><span class="l">Specific Requests</span><span class="v" style="max-width:360px;text-align:right">${dat.specific}</span></div>`;
+  h+=`</div>`;
+
+  const recs=Array.from(sel).map(k=>{
+    const t=TM[k];if(!t)return null;
+    let p='m';const c=+dat.confidence;
+    if(c<=4)p='h';else if(c>=8)p='l';
+    const g=(dat.gap||'').toLowerCase();
+    if(g.includes(k)||g.includes(t.n.toLowerCase().split(' ')[0]))p='h';
+    return{k,...t,p};
+  }).filter(Boolean).sort((a,b)=>{const o={h:0,m:1,l:2};return o[a.p]-o[b.p]});
+
+  const pn={h:'high',m:'medium',l:'low'};
+  recs.forEach(r=>{
+    h+=`<div class="rec"><div class="top"><span class="rn">${r.n}</span><span class="pri ${r.p}">${pn[r.p]} priority</span></div>
+    <div class="trg">Triggered by: "${r.k}" keyword</div><div class="dsc">${r.desc}</div>
+    <span class="rdom ${r.d}">${r.d}</span></div>`;
+  });
+
+  if(dat.specific){
+    h+=`<div class="rec" style="border-color:var(--am)"><div class="top"><span class="rn">Direct Request — Manual Review</span><span class="pri h">review</span></div>
+    <div class="dsc">${dat.specific}</div><span class="rdom quality">manual entry</span></div>`;
+  }
+  if(!recs.length&&!dat.specific)h+=`<p style="color:var(--tm);text-align:center;padding:32px">No keywords selected. Go back to add growth areas.</p>`;
+  document.getElementById('res').innerHTML=h;
+}
+
+function xCSV(){
+  const recs=Array.from(sel).map(k=>TM[k]).filter(Boolean);
+  const rows=[['Field','Value'],['Name',dat.name],['Employee ID',dat.empId],['Role',dat.role],
+    ['Years',dat.years],['Certs',dat.certs],['Confidence',dat.confidence],['Format',dat.format],
+    ['Keywords',dat.keywords.join('; ')],['Specific',dat.specific],['Gap',dat.gap],
+    ['Growth',dat.growth],['Submitted',dat.at],[],['Training','Domain','Description']];
+  recs.forEach(t=>rows.push([t.n,t.d,t.desc]));
+  const csv=rows.map(r=>r.map(c=>`"${(c||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
+  const b=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download=`training_needs_${dat.name.replace(/\s/g,'_')}.csv`;a.click();
+}
+
+function xJSON(){
+  const out={...dat,recommendations:dat.keywords.map(k=>TM[k]).filter(Boolean)};
+  navigator.clipboard.writeText(JSON.stringify(out,null,2)).then(()=>alert('JSON copied to clipboard'));
+}
+
+function rst(){
+  sel.clear();
+  document.querySelectorAll('.tg.on').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('[id^="ct-"]').forEach(c=>c.textContent='0 selected');
+  document.querySelectorAll('input[type=text],textarea').forEach(e=>e.value='');
+  document.querySelectorAll('select').forEach(e=>e.selectedIndex=0);
+  document.getElementById('fCo').value=7;document.getElementById('cv').textContent='7';
+  go(1);
+}
+
+init();
+</script>
+</body>
+</html>
