@@ -264,7 +264,7 @@ function submit(){
     role:document.getElementById('fR').value,years:document.getElementById('fY').value,
     certs:document.getElementById('fC').value.trim(),keywords:Array.from(sel),
     specific:document.getElementById('fSp').value.trim(),gap:document.getElementById('fG').value.trim(),
-    growth:document.getElementById('fGr').value.trim(),confidence:document.getElementById('fCo').value,
+    growth:document.getElementById('fGr').value.trim(),confidence:parseInt(document.getElementById('fCo').value),
     format:document.getElementById('fF').value,at:new Date().toISOString()};
   render();go(4);
 
